@@ -26,7 +26,7 @@ FORCE_INDEX=0
 . /lib/functions/network.sh
 
 FWI=$(uci -q get firewall.passwall.path 2>/dev/null)
-FAKE_IP="198.18.0.0/16"
+FAKE_IP="198.18.0.0/15"
 
 factor() {
 	if [ -z "$1" ] || [ -z "$2" ]; then
@@ -1283,6 +1283,7 @@ flush_nftset_reload() {
 	del_firewall_rule
 	flush_table
 	rm -rf /tmp/singbox_passwall*
+	rm -rf /tmp/etc/passwall_tmp/smartdns*
 	rm -rf /tmp/etc/passwall_tmp/dnsmasq*
 	/etc/init.d/passwall reload
 }
