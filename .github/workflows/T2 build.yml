@@ -17,7 +17,6 @@ jobs:
           - master
         arch:
           - aarch64_cortex-a53
-          - x86_64
 
     steps:
       - uses: actions/checkout@main
@@ -28,11 +27,13 @@ jobs:
         uses: openwrt/gh-action-sdk@main
         env:
           ARCH: ${{ matrix.arch }}-${{ matrix.release }}
-          FEEDNAME: packages_ci
+#          FEEDNAME: packages_ci
           PACKAGES: vim
-          NO_REFRESH_CHECK: true
-          IGNORE_ERRORS: true
-          PRIVATE_KEY: CLSKzUBd0hzKWR6A7sJ80Rfc4fliZvfpYIlagYt8x3o=
+          ARTIFACTS_DIR: ${{ github.workspace }}/artifacts
+          FEED_DIR: ${{ github.workspace }}/feed
+#          NO_REFRESH_CHECK: true
+#          IGNORE_ERRORS: true
+#          PRIVATE_KEY: CLSKzUBd0hzKWR6A7sJ80Rfc4fliZvfpYIlagYt8x3o=
 
       - name: Store packages
         uses: actions/upload-artifact@main
