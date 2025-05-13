@@ -35,7 +35,7 @@ jobs:
 #          IGNORE_ERRORS: true
 #          PRIVATE_KEY: CLSKzUBd0hzKWR6A7sJ80Rfc4fliZvfpYIlagYt8x3o=
       - name: Verify packages saved
-        run: find artifacts/bin/packages/${{ matrix.arch }}/packages/ -maxdepth 1 -name '*.[ai]pk' -type f | grep .
+        run: find bin/packages/${{ matrix.arch }}/packages/ -maxdepth 1 -name '*.[ai]pk' -type f | grep .
 
       - name: Store packages
         uses: actions/upload-artifact@main
