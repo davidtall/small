@@ -8,13 +8,13 @@ on:
 
 jobs:
   build:
-    name: build ${{ matrix.arch }}-${{ matrix.sdk }}
+    name: build ${{ matrix.arch }}-${{ matrix.release }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        sdk:
-          - 23.05.2
+        release:
+          - master
         arch:
           - aarch64_cortex-a53
           - x86_64
@@ -27,9 +27,9 @@ jobs:
       - name: Build
         uses: kenzok8/gh-action-sdk@hash
         env:
-          ARCH: ${{ matrix.arch }}-${{ matrix.sdk }}
+          ARCH: ${{ matrix.arch }}-${{ matrix.release }}
           FEEDNAME: packages_ci
-          PACKAGES: sing-box
+          PACKAGES: vim
           NO_REFRESH_CHECK: true
           IGNORE_ERRORS: true
           PRIVATE_KEY: CLSKzUBd0hzKWR6A7sJ80Rfc4fliZvfpYIlagYt8x3o=
@@ -37,12 +37,12 @@ jobs:
       - name: Store packages
         uses: actions/upload-artifact@main
         with:
-          name: ${{ matrix.arch }}-${{ matrix.sdk }}
+          name: ${{ matrix.arch }}-${{ matrix.release }}
           path: bin/packages/${{ matrix.arch }}/packages_ci/*.apk
 
       - name: Zip packages
         run: |
-          zip -j ${{ matrix.arch }}-${{ matrix.sdk }}.zip bin/packages/${{ matrix.arch }}/packages_ci/*.apk
+          zip -j ${{ matrix.arch }}-${{ matrix.release }}.zip bin/packages/${{ matrix.arch }}/packages_ci/*.apk
           echo -e "**文件说明** 🎈:\n" >> release.txt
           echo -e "1. 默认ssr与passwall的插件与依赖整合包\n" >> release.txt
           echo -e "2. 使用方法：将整合包上传到openwrt设备的tmp目录，输入命令 \`opkg install *.apk\`\n" >> release.txt
@@ -53,7 +53,7 @@ jobs:
         uses: ncipollo/release-action@main
         with:
           token: ${{ secrets.ACCESS_TOKEN }}
-          artifacts: "${{ matrix.arch }}-${{ matrix.sdk }}.zip,bin/packages/${{ matrix.arch }}/packages_ci/*.apk"
+          artifacts: "${{ matrix.arch }}-${{ matrix.release }}.zip,bin/packages/${{ matrix.arch }}/packages_ci/*.apk"
           allowUpdates: true
           replacesArtifacts: true
           bodyFile: "release.txt"
