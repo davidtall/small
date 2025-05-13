@@ -27,7 +27,7 @@ jobs:
         uses: openwrt/gh-action-sdk@main
         env:
           ARCH: ${{ matrix.arch }}-${{ matrix.release }}
-          FEEDNAME: packages_ci
+#          FEEDNAME: packages_ci
           PACKAGES: vim
 #          ARTIFACTS_DIR: ${{ github.workspace }}/artifacts
 #          FEED_DIR: ${{ github.workspace }}/feed
@@ -41,11 +41,11 @@ jobs:
         uses: actions/upload-artifact@main
         with:
           name: ${{ matrix.arch }}-${{ matrix.release }}
-          path: bin/packages/${{ matrix.arch }}/packages_ci/*.apk
+          path: bin/packages/${{ matrix.arch }}/packages/*.apk
 
       - name: Zip packages
         run: |
-          zip -j ${{ matrix.arch }}-${{ matrix.release }}.zip bin/packages/${{ matrix.arch }}/packages_ci/*.apk
+          zip -j ${{ matrix.arch }}-${{ matrix.release }}.zip bin/packages/${{ matrix.arch }}/packages/*.apk
           echo -e "**文件说明** 🎈:\n" >> release.txt
           echo -e "1. 默认ssr与passwall的插件与依赖整合包\n" >> release.txt
           echo -e "2. 使用方法：将整合包上传到openwrt设备的tmp目录，输入命令 \`opkg install *.apk\`\n" >> release.txt
@@ -56,7 +56,7 @@ jobs:
         uses: ncipollo/release-action@main
         with:
           token: ${{ secrets.ACCESS_TOKEN }}
-          artifacts: "${{ matrix.arch }}-${{ matrix.release }}.zip,bin/packages/${{ matrix.arch }}/packages_ci/*.apk"
+          artifacts: "${{ matrix.arch }}-${{ matrix.release }}.zip,bin/packages/${{ matrix.arch }}/packages/*.apk"
           allowUpdates: true
           replacesArtifacts: true
           bodyFile: "release.txt"
