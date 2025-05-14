@@ -31,9 +31,9 @@ jobs:
           PACKAGES: vim
           NO_DEFAULT_FEEDS: true
           EXTRA_FEEDS: |
-            src-git packages https://github.com/immortalwrt/packages.git
-            src-git luci https://github.com/immortalwrt/luci.git
-            src-git routing https://git.openwrt.org/feed/routing.git
+            src-git|packages|https://github.com/immortalwrt/packages.git
+            src-git|luci|https://github.com/immortalwrt/luci.git
+            src-git|routing|https://git.openwrt.org/feed/routing.git
 #          ARTIFACTS_DIR: ${{ github.workspace }}/artifacts
 #          FEED_DIR: ${{ github.workspace }}/feed
 #          NO_REFRESH_CHECK: true
