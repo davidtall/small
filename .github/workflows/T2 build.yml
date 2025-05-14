@@ -28,7 +28,7 @@ jobs:
         env:
           ARCH: ${{ matrix.arch }}-${{ matrix.release }}
 #          FEEDNAME: packages_ci
-          PACKAGES: sing-box
+          PACKAGES: sing-box luci-app-dae dae v2ray-geodata
 #          NO_DEFAULT_FEEDS: true
 #          EXTRA_FEEDS: |
 #            src-git|packages|https://github.com/immortalwrt/packages.git
