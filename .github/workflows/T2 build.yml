@@ -34,8 +34,10 @@ jobs:
             src-git|packages|https://github.com/immortalwrt/packages.git
             src-git|luci|https://github.com/immortalwrt/luci.git
             src-git|routing|https://git.openwrt.org/feed/routing.git
+            src-git|telephony|https://git.openwrt.org/feed/telephony.git
+            src-git|video|https://github.com/openwrt/video.git
 #          ARTIFACTS_DIR: ${{ github.workspace }}/artifacts
-#          FEED_DIR: ${{ github.workspace }}/feed
+#          FEED_DIR: ${{ github.workspace }}
 #          NO_REFRESH_CHECK: true
 #          IGNORE_ERRORS: true
 #          PRIVATE_KEY: CLSKzUBd0hzKWR6A7sJ80Rfc4fliZvfpYIlagYt8x3o=
